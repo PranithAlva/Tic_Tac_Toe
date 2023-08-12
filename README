@@ -1,0 +1,19 @@
+- store gameboard as an array inside of a gameboard object
+- players also going to be object
+- little global code as possible
+- tuck everything inside module or factory
+- one of something use module
+- players to mark spcific spot
+- should chekck for when the game is over. check for 3 in a row and tie
+- start/restart game
+- place to enter user name
+- congratulate winning player
+- keep ui seperate from logic
+
+/_ now this a accomplishment_/
+
+/**
+download font
+finalise colors
+ui improvements
+complete js for the buttons**/

@@ -10,9 +10,68 @@
 	</head>
 	<body>
 		<div id="container">
-			<div class="tabs">START GAME</div>
-			<div class="tabs">HELP</div>
-			<div class="tabs">QUIT</div>
+			<div class="tab" id="left-tab">
+				<div class="player-container">
+					<div class="logo"></div>
+					<div class="image-pannel"></div>
+				</div>
+			</div>
+
+			<div class="console-tab">
+				<div class="header">
+					TiC-TaC-ToE
+					<div
+						style="
+							background: blue;
+							float: right;
+							box-sizing: border-box;
+							display: block;
+							padding: 5px;
+							margin-top: 80px;
+							width: 60px;
+							height: 30px;
+							border-radius: 15px;
+							font-size: 10px;
+						"
+					>
+						<div
+							type="radio"
+							id="radio"
+							name="radio"
+							style="
+								width: 20px;
+								height: 20px;
+								background: yellow;
+								border-radius: 50%;
+							"
+						></div>
+						Add svg here!!
+					</div>
+				</div>
+				<div class="grid-container">
+					<div class="grid">1</div>
+					<div class="grid">2</div>
+					<div class="grid">3</div>
+					<div class="grid">4</div>
+					<div class="grid">5</div>
+					<div class="grid">6</div>
+					<div class="grid">7</div>
+					<div class="grid">8</div>
+					<div class="grid">9</div>
+				</div>
+				<!--
+				<div id="keypad">
+					<div class="buttons">START</div>
+					<div class="buttons">SINGLE PLAYER</div>
+					<div class="buttons">MULTI PLAYER</div>
+				</div>-->
+			</div>
+			<div class="tab" id="right-tab">
+				<div class="player-container">
+					<div class="logo"></div>
+					<div class="image-pannel"></div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

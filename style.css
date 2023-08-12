@@ -1,0 +1,269 @@
+/* variable declaration*/
+:root {
+	box-sizing: border-box;
+	--primary-color: ;
+	--secondary-color: ;
+	--victory-color: ;
+	--defeat-color: ;
+	--marker-color: ;
+	--font: ;
+}
+/*like to import a font here*/
+
+/*Reset-start*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol,
+ul {
+	list-style: none;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: "";
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*Reset-end*/
+
+/*Styling-start*/
+#container {
+	height: 100vh;
+	display: flex;
+	box-sizing: border-box;
+	flex-direction: row;
+}
+
+.tab {
+	height: 100vh;
+	box-sizing: border-box;
+	width: 23%;
+	color: black;
+}
+#left-tab {
+	margin-right: 1%;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+	box-shadow: 5px 5px 5px 5px black;
+}
+
+.player-container {
+	background: rgb(86, 86, 255);
+	padding-block: 30px;
+}
+
+.logo {
+	margin-inline: auto;
+	margin-block: 20px;
+	width: 100px;
+	height: 100px;
+	background: yellow;
+	border-radius: 50%;
+}
+
+.logo:hover {
+	background: linear-gradient(pink, yellow, purple);
+}
+
+.image-pannel {
+	width: 80%;
+	height: 5px;
+	margin-inline: auto;
+	background: black;
+}
+
+.image-pannel:active {
+	height: 60px;
+	border-radius: 20px;
+}
+#right-tab {
+	margin-left: 1%;
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+	box-shadow: -5px -5px 5px 5px black;
+}
+
+#radio:active {
+	transform: translateX(30px);
+	transition-duration: 500ms;
+}
+
+.console-tab {
+	width: 50%;
+	height: 100vh;
+	background-color: rgb(251, 247, 247);
+	box-sizing: border-box;
+}
+.header {
+	position: fixed;
+	height: 20vh;
+	width: 50%;
+	text-align: center;
+	color: black;
+	font-weight: 900;
+	font-size: 2rem;
+}
+
+.grid-container {
+	margin-top: 25vh;
+	padding-block: 20px;
+	margin-inline: auto;
+	height: 60vh;
+	display: grid;
+	box-sizing: border-box;
+	grid-template-rows: 120px 120px 120px;
+	grid-template-columns: 120px 120px 120px;
+	grid-gap: 10px;
+	justify-content: center;
+}
+
+.grid {
+	box-sizing: border-box;
+	padding-top: 50px;
+	background: white;
+	border-radius: 20px;
+	text-align: center;
+}
+
+#keypad {
+	height: 35vh;
+	border-radius: 20px;
+	padding: 10px;
+	margin-inline: 7rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+	gap: 10px;
+}
+#keypad .buttons {
+	color: white;
+	width: 70%;
+	min-height: 55px;
+	box-sizing: border-box;
+	background: rgb(29, 226, 29);
+	border-radius: 25px;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.buttons:hover {
+	transform: scale(0.8);
+	box-shadow: 1px 1px 2px 2px white;
+}
+
+/*Styling-end*/
+
+/*extend flex*/
+
+/*lets do crazy stuff like chaining and descendant selector*/
