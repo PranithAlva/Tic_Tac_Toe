@@ -11,20 +11,23 @@
 		sans-serif;
 	box-sizing: border-box;
 	/*for light theme*/
-	--light-background-color: white;
+	--light-background-color: rgb(244, 244, 244);
 	--light-primary-color: white;
 	--light-secondary-color: rgb(86, 86, 255);
 	--light-accent-color: #e2e8f0;
 	--light-marker-color: #2dd4bf;
+	--light-marker-hover: #7ffff0;
 	--light-logo-color: yellow;
 	--light-shadow-1: rgb(188, 188, 188);
 	--light-shadow-2: #e2e8f0;
+
 	/*for dark theme*/
 	--dark-background-color: black;
 	--dark-primary-color: rgb(18, 18, 18);
 	--dark-secondary-color: #4ade80;
 	--dark-accent-color: #86efac;
 	--dark-marker-color: #e2e8f0;
+	--dark-marker-hover: #d9f99d;
 	--light-text-color: black;
 	--dark-logo-color: rgb(18, 18, 18);
 	--dark-text-color: white;
@@ -37,16 +40,17 @@
 	--secondary-color: var(--light-secondary-color);
 	--accent-color: var(--light-accent-color);
 	--marker-color: var(--light-marker-color);
+	--marker-hover-color: var(--light-marker-hover);
 	--logo-color: var(--light-logo-color);
 	--text-color: var(--light-text-color);
 	--shadow-color-1: var(--light-shadow-1);
 	--shadow-color-2: var(--light-shadow-2);
 	--victory-color: ;
 	--defeat-color: ;
-	--font-100: ;
-	--font-200: ;
-	--font-300: ;
-	--font-400: ;
+	--font-100: 1rem;
+	--font-200: 1.5rem;
+	--font-300: 1.8rem;
+	--font-400: 2rem;
 	--font-500: ;
 	--font: Borel-Regular;
 }
@@ -262,7 +266,7 @@ table {
 
 .player-marker:hover {
 	border-radius: 50%;
-	background: #7ffff0; /* #14b8a6;*/
+	background: var(--marker-hover-color); /* #14b8a6;*/
 }
 
 #right-tab {
@@ -308,7 +312,7 @@ table {
 	padding: 1rem;
 	color: var(--text-color);
 	font-weight: 900;
-	font-size: 2rem;
+	font-size: var(--font-400);
 	box-sizing: border-box;
 }
 
@@ -364,13 +368,13 @@ table {
 .control-buttons {
 	margin-inline: 2vw;
 	width: 40vw;
+	background: var(--accent-color);
 	padding-top: 20px;
 	padding-inline: 20px;
 	border: none;
 	font-family: var(--font);
-	font-size: 1.8rem;
+	font-size: var(--font-300);
 }
-
 .control-buttons:hover {
 	transform: scale(0.95);
 	transition-duration: 500ms;
@@ -391,9 +395,10 @@ table {
 	height: 70vh;
 	background: var(--primary-color);
 	color: var(--text-color);
+	font-size: var(--font-200);
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: space-between;
 	border-top-right-radius: 30px;
 	border-top-left-radius: 30px;
 	box-sizing: border-box;
@@ -409,6 +414,20 @@ table {
 .links {
 	display: flex;
 	flex-direction: row-reverse;
+	gap: 30px;
+}
+
+.link-icon:active {
+	transform: scale(0.92);
+	transition-duration: 200ms;
+}
+
+#instagram:hover {
+	fill: #d62976;
+}
+
+#linkedin:hover {
+	fill: #0072b1;
 }
 
 .menu-pannel {
@@ -447,7 +466,7 @@ table {
 	opacity: 1;
 	border: none;
 	border-radius: 50px;
-	font-size: 1.5rem;
+	font-size: var(--font-200);
 }
 
 .menu-pannel button:hover {
