@@ -1,7 +1,7 @@
 console.log("hello world");
 
 function test() {
-	this.textContent = "x";
+	this.textContent = "X";
 	console.log("hello world");
 }
 const tabs = document.querySelectorAll(".tabs");
