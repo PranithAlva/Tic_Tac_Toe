@@ -15,21 +15,21 @@
 	--light-primary-color: white;
 	--light-secondary-color: rgb(86, 86, 255);
 	--light-accent-color: #e2e8f0;
-	--light-marker-color: #2dd4bf;
-	--light-marker-hover: #7ffff0;
+	--light-marker-color: rgb(146, 255, 146); /*#2dd4bf*/
+	--light-marker-hover: var(--accent-color); /*#7ffff0;*/
 	--light-logo-color: yellow;
 	--light-shadow-1: rgb(188, 188, 188);
 	--light-shadow-2: #e2e8f0;
 
 	/*for dark theme*/
 	--dark-background-color: black;
-	--dark-primary-color: rgb(18, 18, 18);
+	--dark-primary-color: rgb(30, 30, 30);
 	--dark-secondary-color: #4ade80;
 	--dark-accent-color: #86efac;
 	--dark-marker-color: #e2e8f0;
-	--dark-marker-hover: #d9f99d;
+	--dark-marker-hover: #86efac;
 	--light-text-color: black;
-	--dark-logo-color: rgb(18, 18, 18);
+	--dark-logo-color: rgb(30, 30, 30);
 	--dark-text-color: white;
 	--dark-shadow-1: none;
 	--dark-shadow-2: none;
@@ -45,14 +45,28 @@
 	--text-color: var(--light-text-color);
 	--shadow-color-1: var(--light-shadow-1);
 	--shadow-color-2: var(--light-shadow-2);
+
 	--victory-color: ;
 	--defeat-color: ;
 	--font-100: 1rem;
 	--font-200: 1.5rem;
 	--font-300: 1.8rem;
 	--font-400: 2rem;
-	--font-500: ;
+	--font-500: 2.5rem;
 	--font: Borel-Regular;
+}
+
+.dark-theme {
+	--background-color: var(--dark-background-color);
+	--primary-color: var(--dark-primary-color);
+	--secondary-color: var(--dark-secondary-color);
+	--accent-color: var(--dark-accent-color);
+	--marker-color: var(--dark-marker-color);
+	--marker-hover-color: var(--dark-marker-hover);
+	--logo-color: var(--dark-logo-color);
+	--text-color: var(--dark-text-color);
+	--shadow-color-1: var(--dark-shadow-1);
+	--shadow-color-2: var(--dark-shadow-2);
 }
 
 .hide-content {
@@ -220,7 +234,7 @@ table {
 	height: 100px;
 	background: var(--logo-color);
 	border-radius: 50%;
-	outline: 3px solid white;
+	outline: 3px solid var(--accent-color);
 	outline-offset: 0.2rem;
 }
 
@@ -246,40 +260,38 @@ table {
 	transform: scalex(1.5);
 	transition-duration: 500ms;
 }
-.image-pannel:active {
+.image-pannel-expand {
 	height: 60px;
 	transform: scaleX(1);
 	padding: 2%;
 	width: 60%;
 	border-radius: 6%;
+	margin-inline: auto;
+	background: var(--marker-color);
+	box-sizing: border-box;
+	transition-duration: 700ms;
 }
+
 @media (max-width: 1000px) {
 	.image-pannel:active {
 		height: 40px;
 	}
 }
-.image-pannel:active > .image-grid {
+
+.image-pannel-expand > .image-grid {
 	/*> is used to select the nested element only*/
 	visibility: visible;
 	transition-delay: 200ms;
 }
 
 .player-marker:hover {
-	border-radius: 50%;
+	border-radius: 10px;
 	background: var(--marker-hover-color); /* #14b8a6;*/
 }
 
 #right-tab {
 	background-color: var(--primary-color);
 	box-shadow: -5px 5px 20px 3px var(--shadow-color-1);
-}
-
-#radio {
-	animation: slide 200ms linear 0ms 1 normal forwards;
-	animation-play-state: paused;
-}
-#radio:active {
-	animation-play-state: running;
 }
 
 .name-holder {
@@ -388,6 +400,10 @@ table {
 	background: #bef264;
 }
 
+input {
+	text-align: center;
+}
+
 .footer {
 	margin-top: 100px;
 	padding-inline: 5%;
@@ -421,7 +437,9 @@ table {
 	transform: scale(0.92);
 	transition-duration: 200ms;
 }
-
+#github:hover {
+	fill: var(--secondary-color);
+}
 #instagram:hover {
 	fill: #d62976;
 }
@@ -432,7 +450,7 @@ table {
 
 .menu-pannel {
 	width: 100vw;
-	height: 100vh;
+	height: 170vh;
 	padding-block: 15vh;
 	position: absolute;
 	top: 0px;
@@ -440,7 +458,8 @@ table {
 	backdrop-filter: blur(10px);
 	display: none;
 }
-.pannel {
+.pannel,
+.modes {
 	padding: 50px;
 	background: var(--background-color);
 	opacity: 0.8;
@@ -450,6 +469,21 @@ table {
 	box-sizing: border-box;
 }
 
+.modes {
+	background-color: var(--secondary-color);
+}
+.mode-buttons {
+	padding-block: 30px;
+	padding-inline: 20px;
+	background-color: var(--background-color);
+	border-radius: 50px;
+}
+
+.selector:first-child {
+	font-size: var(--font-500);
+	text-align: center;
+	height: 100px;
+}
 .menu-pannel button,
 .menu-pannel div {
 	display: block;
@@ -473,9 +507,17 @@ table {
 	background: linear-gradient(
 		145deg,
 		var(--secondary-color) 60%,
-		var(--accent-color)
+		var(--background-color)
 	);
 	transform: scale(0.95);
+}
+
+.pannel {
+	/*display: none !important*/
+}
+
+.modes {
+	/*display: none !important*/
 }
 
 @media (max-width: 500px) {
@@ -503,11 +545,20 @@ table {
 	}
 }
 
-@keyframes slide {
+@keyframes slideX {
 	0% {
 	}
 	100% {
 		transform: translateX(30px);
+	}
+}
+
+@keyframes slideY {
+	0% {
+		transform: translateX(30px);
+	}
+	100% {
+		transform: translateX(0px);
 	}
 }
 
