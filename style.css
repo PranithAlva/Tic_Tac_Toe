@@ -20,6 +20,7 @@
 	--light-logo-color: yellow;
 	--light-shadow-1: rgb(188, 188, 188);
 	--light-shadow-2: #e2e8f0;
+	--light-text-color: black;
 
 	/*for dark theme*/
 	--dark-background-color: black;
@@ -28,7 +29,6 @@
 	--dark-accent-color: #86efac;
 	--dark-marker-color: #e2e8f0;
 	--dark-marker-hover: #86efac;
-	--light-text-color: black;
 	--dark-logo-color: rgb(30, 30, 30);
 	--dark-text-color: white;
 	--dark-shadow-1: none;
@@ -238,12 +238,18 @@ table {
 	outline-offset: 0.2rem;
 }
 
+.logo:hover {
+	animation: vary 800ms linear 0ms infinite normal forwards;
+	transition-duration: 200ms;
+}
+
 .image-pannel {
 	width: 20%;
 	height: 5px;
 	margin-inline: auto;
 	background: var(--marker-color);
 	box-sizing: border-box;
+	transition-duration: 700ms;
 }
 
 .image-grid {
@@ -559,6 +565,42 @@ input {
 	}
 	100% {
 		transform: translateX(0px);
+	}
+}
+
+@keyframes vary {
+	0% {
+		background: linear-gradient(
+			45deg,
+			#e1306c,
+			#f77737,
+			rgb(131, 58, 180),
+			rgb(193, 53, 132),
+			rgb(253, 29, 29),
+			rgb(245, 96, 64)
+		);
+	}
+	50% {
+		background: linear-gradient(
+			45deg,
+			rgb(131, 58, 180),
+			rgb(193, 53, 132),
+			rgb(253, 29, 29),
+			rgb(245, 96, 64),
+			#e1306c,
+			#f77737
+		);
+	}
+	100% {
+		background: linear-gradient(
+			45deg,
+			rgb(253, 29, 29),
+			rgb(245, 96, 64),
+			#e1306c,
+			#f77737,
+			rgb(131, 58, 180),
+			rgb(193, 53, 132)
+		);
 	}
 }
 

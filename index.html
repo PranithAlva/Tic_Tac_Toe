@@ -24,14 +24,14 @@
 								/>
 							</svg>
 						</div>
-						<div class="logo"></div>
+						<div class="logo" id="left-logo"></div>
 						<input
 							type="text"
 							class="name-holder"
 							placeholder="Enter your name"
 							maxlength="14"
 						/>
-						<div class="image-pannel">
+						<div class="image-pannel" data-value="0">
 							<div class="image-grid">
 								<!--Tic-tac-toe classic-->
 								<svg
@@ -39,6 +39,7 @@
 									viewBox="0 -960 960 960"
 									id="player1-classic"
 									class="player-marker"
+									fill="var(--text-color)"
 								>
 									<path
 										d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
@@ -271,6 +272,7 @@
 							</svg>
 						</span>
 						<div
+							id="slide-box"
 							style="
 								background: var(--secondary-color);
 								float: right;
@@ -283,6 +285,7 @@
 							"
 						>
 							<div
+								draggable="true"
 								type="radio"
 								id="radio"
 								name="radio"
@@ -320,14 +323,14 @@
 								/>
 							</svg>
 						</div>
-						<div class="logo"></div>
+						<div class="logo" id="right-logo"></div>
 						<input
 							type="text"
 							class="name-holder"
 							placeholder="TiCy-A-ToE"
 							maxlength="15"
 						/>
-						<div class="image-pannel">
+						<div class="image-pannel" data-value="1">
 							<div class="image-grid">
 								<!--tic-tac-toe classice-->
 								<svg
@@ -348,7 +351,7 @@
 									>
 										<g
 											id="drop"
-											fill="#000000"
+											fill="var(--text-color)"
 											transform="translate(42.666667, 42.666667)"
 										>
 											<path

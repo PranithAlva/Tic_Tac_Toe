@@ -28,10 +28,16 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 
 20/aug
 
--variables
--front menu
+-variables -done
+-front menu -done
 
-//add action listener on click
-//add action listener for the slider
+//add action listener on click -done
 //come up with logic using factory function
 //revise factory function aswell as the position for today
+
+//complete menu screen
+//complete drag option -> done
+//complete image pannel -> done
+
+//start with input section
+//add other action listeners to other buttons
