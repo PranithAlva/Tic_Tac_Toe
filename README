@@ -34,10 +34,12 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 //add action listener on click -done
 //come up with logic using factory function
 //revise factory function aswell as the position for today
-
+//display the new div and make it disapper within 1 minute with animation
 //complete menu screen
 //complete drag option -> done
 //complete image pannel -> done
+//new div ->done
+//start with input section->wip
+//add other action listeners to other buttons ->pending
 
-//start with input section
-//add other action listeners to other buttons
+https://pranithalva.github.io/Tic_Tac_Toe/

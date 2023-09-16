@@ -17,9 +17,10 @@
 	--light-accent-color: #e2e8f0;
 	--light-marker-color: rgb(146, 255, 146); /*#2dd4bf*/
 	--light-marker-hover: var(--accent-color); /*#7ffff0;*/
-	--light-logo-color: yellow;
+	--light-logo-color: var(--accent-color);
 	--light-shadow-1: rgb(188, 188, 188);
 	--light-shadow-2: #e2e8f0;
+	--light-shadow-3: rgb(188, 188, 188);
 	--light-text-color: black;
 
 	/*for dark theme*/
@@ -33,6 +34,7 @@
 	--dark-text-color: white;
 	--dark-shadow-1: none;
 	--dark-shadow-2: none;
+	--dark-shadow-3: rgb(30, 30, 30);
 
 	/*applied theme*/
 	--background-color: var(--light-background-color);
@@ -45,6 +47,7 @@
 	--text-color: var(--light-text-color);
 	--shadow-color-1: var(--light-shadow-1);
 	--shadow-color-2: var(--light-shadow-2);
+	--shadow-color-3: var(--light-shadow-3);
 
 	--victory-color: ;
 	--defeat-color: ;
@@ -67,6 +70,7 @@
 	--text-color: var(--dark-text-color);
 	--shadow-color-1: var(--dark-shadow-1);
 	--shadow-color-2: var(--dark-shadow-2);
+	--shadow-color-3: var(--dark-shadow-3);
 }
 
 .hide-content {
@@ -239,8 +243,27 @@ table {
 }
 
 .logo:hover {
-	animation: vary 800ms linear 0ms infinite normal forwards;
-	transition-duration: 200ms;
+	animation: vary 800ms linear 0ms 2 normal backwards;
+	transition-duration: 300ms;
+	outline: 6px solid var(--accent-color);
+}
+
+.message-box {
+	background: var(--primary-color);
+	color: var(--primary-color);
+	padding: 25px;
+	left: 27vw;
+	height: 50px;
+	text-align: center;
+	position: absolute;
+	top: 120px;
+	border-radius: 20px;
+	font-size: var(--font-200);
+	box-sizing: border-box;
+	opacity: 0.6;
+	box-shadow: -5px 5px 20px 3px var(--shadow-color-3);
+	animation: display-message 1000ms linear 0ms 1 normal forwards;
+	transition: color 2s ease-in;
 }
 
 .image-pannel {
@@ -354,7 +377,6 @@ table {
 
 .grid {
 	box-sizing: border-box;
-	padding-top: 50px;
 	background: var(--primary-color);
 	color: var(--text-color);
 	border-radius: 20px;
@@ -456,9 +478,9 @@ input {
 
 .menu-pannel {
 	width: 100vw;
-	height: 170vh;
+	height: 100vmax; /*cool captures the entire view port*/
 	padding-block: 15vh;
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	background-color: rgb(255, 255, 255/0.3);
 	backdrop-filter: blur(10px);
@@ -519,11 +541,11 @@ input {
 }
 
 .pannel {
-	/*display: none !important*/
+	/*display: none !important;*/
 }
 
 .modes {
-	/*display: none !important*/
+	/*display: none !important;*/
 }
 
 @media (max-width: 500px) {
@@ -568,38 +590,55 @@ input {
 	}
 }
 
+@keyframes display-message {
+	0% {
+		width: 0px;
+		overflow: hidden;
+		background: linear-gradient(
+			45deg,
+			var(--logo-color),
+			var(--logo-color),
+			var(--secondary-color)
+		);
+	}
+	80% {
+		background: linear-gradient(
+			45deg,
+			var(--logo-color),
+			var(--secondary-color),
+			var(--logo-color)
+		);
+	}
+	100% {
+		width: 600px;
+		border-left: 20px solid var(--secondary-color);
+	}
+}
+
 @keyframes vary {
 	0% {
 		background: linear-gradient(
 			45deg,
-			#e1306c,
-			#f77737,
-			rgb(131, 58, 180),
-			rgb(193, 53, 132),
-			rgb(253, 29, 29),
-			rgb(245, 96, 64)
+			var(--logo-color),
+			var(--logo-color),
+			var(--secondary-color)
 		);
 	}
 	50% {
 		background: linear-gradient(
 			45deg,
-			rgb(131, 58, 180),
-			rgb(193, 53, 132),
-			rgb(253, 29, 29),
-			rgb(245, 96, 64),
-			#e1306c,
-			#f77737
+			var(--logo-color),
+			var(--secondary-color),
+			var(--logo-color)
 		);
 	}
+
 	100% {
 		background: linear-gradient(
 			45deg,
-			rgb(253, 29, 29),
-			rgb(245, 96, 64),
-			#e1306c,
-			#f77737,
-			rgb(131, 58, 180),
-			rgb(193, 53, 132)
+			var(--secondary-color),
+			var(--logo-color),
+			var(--logo-color)
 		);
 	}
 }
