@@ -22,6 +22,7 @@
 	--light-shadow-2: #e2e8f0;
 	--light-shadow-3: rgb(188, 188, 188);
 	--light-text-color: black;
+	--light-shadow-4: var(--light-shadow-3);
 
 	/*for dark theme*/
 	--dark-background-color: black;
@@ -35,6 +36,7 @@
 	--dark-shadow-1: none;
 	--dark-shadow-2: none;
 	--dark-shadow-3: rgb(30, 30, 30);
+	--dark-shadow-4: rgb(63, 63, 63);
 
 	/*applied theme*/
 	--background-color: var(--light-background-color);
@@ -48,6 +50,7 @@
 	--shadow-color-1: var(--light-shadow-1);
 	--shadow-color-2: var(--light-shadow-2);
 	--shadow-color-3: var(--light-shadow-3);
+	--shadow-color-4: var(--light-shadow-4);
 
 	--victory-color: ;
 	--defeat-color: ;
@@ -71,6 +74,7 @@
 	--shadow-color-1: var(--dark-shadow-1);
 	--shadow-color-2: var(--dark-shadow-2);
 	--shadow-color-3: var(--dark-shadow-3);
+	--shadow-color-4: var(--dark-shadow-4);
 }
 
 .hide-content {
@@ -419,7 +423,9 @@ table {
 	transform: scale(0.95);
 	transition-duration: 500ms;
 }
-
+button:active {
+	box-shadow: 5px 5px 20px 3px var(--shadow-color-4);
+}
 #restart:hover {
 	background: #ec4899;
 }
@@ -475,7 +481,9 @@ input {
 #linkedin:hover {
 	fill: #0072b1;
 }
-
+.shake {
+	animation: shake 400ms linear 0ms infinite normal backwards;
+}
 .menu-pannel {
 	width: 100vw;
 	height: 100vmax; /*cool captures the entire view port*/
@@ -484,7 +492,7 @@ input {
 	top: 0px;
 	background-color: rgb(255, 255, 255/0.3);
 	backdrop-filter: blur(10px);
-	display: none;
+	/*display: none;*/
 }
 .pannel,
 .modes {
@@ -541,11 +549,16 @@ input {
 }
 
 .pannel {
+	/*animation: shake 900ms linear 0ms 1 normal backwards;*/
 	/*display: none !important;*/
 }
 
 .modes {
 	/*display: none !important;*/
+}
+
+.hide {
+	display: none !important;
 }
 
 @media (max-width: 500px) {
@@ -587,6 +600,33 @@ input {
 	}
 	100% {
 		transform: translateX(0px);
+	}
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(20deg);
+	}
+	45% {
+		transform: rotate(0deg);
+	}
+	65% {
+		transform: rotate(-20deg);
+	}
+	78% {
+		transform: rotate(0deg);
+	}
+	88% {
+		transform: rotate(0deg);
+	}
+	95% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
 	}
 }
 

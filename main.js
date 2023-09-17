@@ -6,7 +6,8 @@ let mode = true; //false=night or true=day
 
 let playerOne = null;
 let playerTwo = null;
-
+let enableTicy = null;
+let difficulty = 0;
 //it related to array below
 let interruptType = 0;
 
@@ -72,6 +73,21 @@ function setInterrupt(interrupt) {
 function getInterrupt() {
 	return interruptType;
 }
+//problem here, solution is to check if it has child before removing child
+function reset() {
+	playerTurn = 0;
+	grid.forEach((grid) => {
+		if (grid.firstChild) grid.removeChild(grid.lastChild);
+	});
+}
+
+function changeDifficulty() {
+	reset();
+	//missing other reset as well
+	document.querySelector(".menu-pannel").classList.remove("hide-content");
+	document.querySelector(".pannel").classList.remove("hide");
+	console.log("hello");
+}
 
 //image pannel
 function expand() {
@@ -107,9 +123,56 @@ function collapse(e) {
 	}
 }
 
-function startGame() {}
+//work around failed
+function startGame() {
+	let pannel = document.querySelector(".pannel");
 
-function selectDifficulty() {}
+	if (enableTicy == true || enableTicy == false) {
+		pannel.classList.add("hide");
+		document.querySelector(".menu-pannel").classList.add("hide-content");
+	} else {
+		pannel.classList.remove("shake");
+		pannel.classList.add("shake");
+		pannel.style.animationPlayState = "running";
+		setTimeout(() => {
+			pannel.classList.remove("shake");
+		}, 400);
+	}
+}
+
+function selectDifficulty() {
+	document.querySelector(".pannel").classList.toggle("hide");
+	document.querySelector(".modes").classList.toggle("hide");
+}
+
+function setDifficulty() {
+	switch (this.dataset.value) {
+		case "0":
+			difficulty = 0;
+			console.log(difficulty);
+			break;
+		case "1":
+			difficulty = 1;
+			console.log(difficulty);
+			break;
+		default:
+	}
+	selectDifficulty();
+}
+
+function setPlayerMode() {
+	switch (this.dataset.value) {
+		case "1":
+			enableTicy = false;
+			break;
+		case "2":
+			enableTicy = true;
+			selectDifficulty();
+			break;
+		default:
+			startGame();
+	}
+}
 
 function addMessage() {
 	messageBox.innerHTML = gameMessages[getInterrupt()];
@@ -196,3 +259,20 @@ playerName.forEach((name) => name.addEventListener("change", getUserDetails));
 //grid
 const grid = document.querySelectorAll(".grid");
 grid.forEach((grid) => grid.addEventListener("click", test));
+
+//control buttons
+const restart = document.getElementById("restart");
+restart.addEventListener("click", reset);
+
+const difficultyMode = document.getElementById("change-mode");
+difficultyMode.addEventListener("click", changeDifficulty);
+
+//menu pannel buttons
+const pannelButton = document.querySelectorAll(".pannel-button");
+pannelButton.forEach((button) =>
+	button.addEventListener("click", setPlayerMode)
+);
+const difficultyButton = document.querySelectorAll(".difficulty-button");
+difficultyButton.forEach((mode) =>
+	mode.addEventListener("click", setDifficulty)
+);

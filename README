@@ -34,12 +34,18 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 //add action listener on click -done
 //come up with logic using factory function
 //revise factory function aswell as the position for today
-//display the new div and make it disapper within 1 minute with animation
+//display the new div and make it disapper within 1 minute with animation->done
 //complete menu screen
 //complete drag option -> done
 //complete image pannel -> done
 //new div ->done
-//start with input section->wip
+//start with input section->done
+//reset function
+//change mode function
+//start game function -> vibrate if no modes is selected
+//1p -> enable 1p mode ->
+//2p -> enable 2p mode ->
+//dificulty ->
 //add other action listeners to other buttons ->pending
 
 https://pranithalva.github.io/Tic_Tac_Toe/
