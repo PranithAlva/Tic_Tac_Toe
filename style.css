@@ -269,6 +269,11 @@ table {
 	animation: display-message 1000ms linear 0ms 1 normal forwards;
 	transition: color 2s ease-in;
 }
+.fade-in {
+	animation-name: fadeIn;
+	animation-duration: 500ms;
+	animation-timing-function: ease-out;
+}
 
 .image-pannel {
 	width: 20%;
@@ -503,6 +508,7 @@ input {
 	width: 40vw;
 	border-radius: 50px;
 	box-sizing: border-box;
+	box-shadow: 5px 5px 20px 3px var(--shadow-color-4);
 }
 
 .modes {
@@ -602,7 +608,14 @@ input {
 		transform: translateX(0px);
 	}
 }
-
+@keyframes fadeIn {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
 @keyframes shake {
 	0% {
 		transform: rotate(0deg);

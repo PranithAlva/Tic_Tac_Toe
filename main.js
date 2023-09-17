@@ -36,6 +36,9 @@ function pageLoad() {
 
 	marker = markerTwo.cloneNode(true);
 	document.getElementById("right-logo").appendChild(marker);
+	let pannel = document.querySelector(".pannel");
+	pannel.classList.add("fade-in");
+	setTimeout(() => pannel.classList.remove("fade-in"), 500);
 }
 
 function changeMode(e) {
