@@ -40,7 +40,7 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 //complete image pannel -> done
 //new div ->done
 //start with input section->done
-//reset function
+//reset function   ->
 //change mode function
 //start game function -> vibrate if no modes is selected
 //1p -> enable 1p mode ->
@@ -49,3 +49,9 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 //add other action listeners to other buttons ->pending
 
 https://pranithalva.github.io/Tic_Tac_Toe/
+
+
+//disable the change of icons during game;
+//enhance change mode 
+//ai   pending
+//e6 modules   pending

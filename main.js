@@ -10,15 +10,15 @@ let enableTicy = null;
 let difficulty = 0;
 //it related to array below
 let interruptType = 0;
-
+let checkGridFull = -9;
 let playerTurn = 0;
-
+let availableGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 //array with messages
 const gameMessages = [
 	"Please enter <strong style='color:var(--secondary-color)'>player_one</strong>  name",
 	"Please enter <strong style='color:var(--secondary-color)'>Player_two</strong> name ",
-	`Congratulations <strong style='color:var(--secondary-color)'>${playerOne}</strong> wins!!`,
-	`Congratulations <strong style='color:var(--secondary-color)'>${playerTwo}</strong> wins!!`,
+	0,
+	1,
 	"It's not <strong style='color:var(--secondary-color)'> over yet </strong>!!!",
 	"But in the end it dosnot <strong style='color:var(--secondary-color)'>even matter</strong>!!",
 ];
@@ -42,6 +42,7 @@ function pageLoad() {
 }
 
 function changeMode(e) {
+	console.log(playerTwo);
 	let slideBox = document.getElementById("slide-box");
 	let coordinates = slideBox.getBoundingClientRect();
 	let slideCoordinates = e.clientX;
@@ -78,7 +79,14 @@ function getInterrupt() {
 }
 //problem here, solution is to check if it has child before removing child
 function reset() {
+	document.getElementById("right-crown").classList.remvoe("hide-content");
+	document.getElementById("left-crown").classList.remove("hide-content");
 	playerTurn = 0;
+	interruptType = 0;
+	checkGridFull = -9;
+	availableGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+	messageBox.classList.add("hide-cotent");
+
 	grid.forEach((grid) => {
 		if (grid.firstChild) grid.removeChild(grid.lastChild);
 	});
@@ -203,8 +211,123 @@ function checkDetails() {
 	return 0;
 }
 
+function checkThreeDashed(position, value, color) {
+	//0 1 2=>n%3,n/3
+	//3 4 5=>n%3,n/3
+	//6 7 8=>n%3,n/3
+	//middle case
+	//corner case
+	console.log("position" + position);
+	row = parseInt(position / 3, 10);
+	console.log(row);
+	console.log(row);
+	let dashed = 0;
+
+	//row
+	dashed =
+		dashed ||
+		(availableGrids[3 * row] == value &&
+			availableGrids[3 * row + 1] == value &&
+			availableGrids[3 * row + 2] == value);
+	console.log("row" + dashed);
+	if (dashed) {
+		document.querySelector(`.grid[data-value~="${3 * row}"]`).style.background =
+			color;
+		document.querySelector(
+			`.grid[data-value~="${3 * row + 1}"]`
+		).style.background = color;
+		document.querySelector(
+			`.grid[data-value~="${3 * row + 2}"]`
+		).style.background = color;
+		return dashed;
+	}
+	//columns
+	let column = position % 3;
+	dashed =
+		dashed ||
+		(availableGrids[column] == value &&
+			availableGrids[column + 3] == value &&
+			availableGrids[column + 6] == value);
+	if (dashed) {
+		document.querySelector(`.grid[data-value~="${column}"]`).style.background =
+			color;
+		document.querySelector(
+			`.grid[data-value~="${column + 3}"]`
+		).style.background = color;
+		document.querySelector(
+			`.grid[data-value~="${column + 6}"]`
+		).style.background = color;
+		return dashed;
+	}
+	console.log("column" + dashed);
+	//diagonal1;
+	if (!(position % 4)) {
+		dashed =
+			dashed ||
+			(availableGrids[0] == value &&
+				availableGrids[4] == value &&
+				availableGrids[8] == value);
+	}
+	if (dashed) {
+		document.querySelector('.grid[data-value~="0"]').style.background = color;
+		document.querySelector('.grid[data-value~="4"]').style.background = color;
+		document.querySelector('.grid[data-value~="8"]').style.background = color;
+		return dashed;
+	}
+	console.log("diagonal" + dashed);
+	//diagonal2
+	if (!(position % 2)) {
+		dashed =
+			dashed ||
+			(availableGrids[2] == value &&
+				availableGrids[4] == value &&
+				availableGrids[6] == value);
+	}
+	if (dashed) {
+		document.querySelector('.grid[data-value~="2"]').style.background = color;
+		document.querySelector('.grid[data-value~="4"]').style.background = color;
+		document.querySelector('.grid[data-value~="6"]').style.background = color;
+		return dashed;
+	}
+	return 0;
+}
+
+function playComputerMove() {
+	playerTurn = ~playerTurn;
+	/*switch()*/
+	let random = Math.floor(Math.random() * availableGrids.length);
+	let index = 0;
+	while (random > -1) {
+		if (availableGrids[index % 9] >= 0) random--;
+		index++;
+	}
+	index--;
+	index %= 9;
+	availableGrids[index] = -2;
+	console.log(availableGrids);
+	selectedGrid = document.querySelector(`.grid[data-value~="${index}"]`);
+	markerTwo = markerTwo.cloneNode(true);
+	if (selectedGrid.firstChild) selectedGrid.removeChild(selectedGrid.lastChild);
+	selectedGrid.appendChild(markerTwo);
+	checkGridFull++;
+	if (checkThreeDashed(index, -2, "#ec4899")) {
+		checkGridFull = 0;
+		setInterrupt(4);
+		messageBox.classList.toggle("hide-content");
+		//addMessage();
+		displayCrown = 1;
+	}
+
+	//
+}
+
 function test() {
-	if (checkDetails() != -1) {
+	if (
+		checkDetails() != -1 &&
+		availableGrids.includes(Number(this.dataset.value)) &&
+		checkGridFull
+	) {
+		console.log("yolo" + this.dataset.value);
 		if (playerTurn == 0) {
 			markerOne = markerOne.cloneNode(true);
 			//while (this.firstChild != null) {
@@ -212,12 +335,46 @@ function test() {
 			if (this.firstChild) this.removeChild(this.lastChild);
 			//}
 			this.appendChild(markerOne);
+			availableGrids[this.dataset.value] = -1;
+			console.log("qen" + availableGrids);
+			checkGridFull++;
+			if (checkThreeDashed(Number(this.dataset.value), -1, "#2ECC71")) {
+				checkGridFull = 0;
+				displayCrown(0);
+				setInterrupt(2);
+				messageBox.classList.toggle("hide-content");
+				//addMessage();
+				return;
+			}
+			if (checkGridFull && enableTicy) playComputerMove();
 		} else {
 			markerTwo = markerTwo.cloneNode(true);
 			if (this.firstChild) this.removeChild(this.lastChild);
 			this.appendChild(markerTwo);
+			checkGridFull++;
+			availableGrids[this.dataset.value] = -2;
+			if (
+				checkThreeDashed(
+					Number(this.dataset.value),
+					-2,
+					"#2ECC71" /* "#d62976"*/
+				)
+			) {
+				checkGridFull = 0;
+				setInterrupt(3);
+				messageBox.classList.toggle("hide-content");
+				//addMessage();
+				displayCrown(1);
+				return;
+			}
+			//
 		}
 		playerTurn = ~playerTurn;
+		if (!checkGridFull) {
+			setInterrupt(5);
+			messageBox.classList.toggle("hide-content");
+			//addMessage();
+		}
 	}
 }
 
@@ -226,13 +383,34 @@ function getUserDetails() {
 	messageBox.innerHTML = "";
 	messageBox.classList.add("hide-content");
 	if (this.dataset.value == 0) {
-		if (text.length > 0) playerOne = text;
-		else playerOne = null;
+		if (text.length > 0) {
+			playerOne = text;
+			gameMessages[2] = `Congratulations <strong style='color:var(--secondary-color)'>${this.value}</strong> wins!!`;
+		} else playerOne = null;
 	} else {
-		if (text.length > 0) playerTwo = text;
-		else playerTwo = null;
+		if (text.length > 0) {
+			playerTwo = text;
+			gameMessages[3] = `Congratulations <strong style='color:var(--secondary-color)'>"${this.value}"</strong> wins!!`;
+		} else playerTwo = null;
 	}
 }
+
+function displayCrown(winner) {
+	if (winner == 0) {
+		this.document
+			.getElementById("left-crown")
+			.classList.toggle("crown-display");
+	}
+	if (winner == 1) {
+		this.document
+			.getElementById("right-crown")
+			.classList.toggle("crown-display");
+	}
+}
+
+function easyMode() {}
+
+function ticyMode() {}
 
 window.addEventListener("load", pageLoad);
 
