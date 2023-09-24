@@ -70,4 +70,4 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 # Wanna Play
 
     Lets not waste anymore time and get into bussiness:
-    <a> https://pranithalva.github.io/Tic_Tac_Toe/ </a>
+    [https://pranithalva.github.io/Tic_Tac_Toe/](https://pranithalva.github.io/Tic_Tac_Toe/)
