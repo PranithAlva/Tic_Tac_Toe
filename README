@@ -56,7 +56,7 @@ light mode <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family
 //ai   pending
 //e6 modules   pending
 
-# Introduction #
+#Introduction#
     Hi, this is a tic tac toe game build using vanilla javascript,html and css. The 
     rules are similar to that of the original tic tac toe game. 
 
