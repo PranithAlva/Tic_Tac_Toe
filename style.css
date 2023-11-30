@@ -36,7 +36,7 @@
 	--dark-shadow-1: none;
 	--dark-shadow-2: none;
 	--dark-shadow-3: rgb(30, 30, 30);
-	--dark-shadow-4: rgb(63, 63, 63);
+	--dark-shadow-4: /*rgb(70, 70, 70)*/ #4ade80;
 
 	/*applied theme*/
 	--background-color: var(--light-background-color);
@@ -248,8 +248,8 @@ table {
 
 .logo:hover {
 	animation: vary 800ms linear 0ms 2 normal backwards;
-	transition-duration: 300ms;
-	outline: 6px solid var(--accent-color);
+	transition-duration: 400ms;
+	outline: 7px solid var(--accent-color);
 }
 
 .message-box {
@@ -392,6 +392,14 @@ table {
 	text-align: center;
 	cursor: pointer;
 	transition: background-color 2s ease-out;
+}
+.grid:hover {
+	transform: scale(0.95);
+	box-shadow: 5px 5px 20px 3px var(--shadow-color-4);
+}
+
+.grid:active {
+	transform: scale(1.2);
 }
 
 .buttons:hover {
