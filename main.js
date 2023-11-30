@@ -3,7 +3,7 @@
 //control on root elemetnt
 const root = document.documentElement;
 let mode = true; //false=night or true=day
-
+let flag = 1;
 let playerOne = null;
 let playerTwo = null;
 let enableTicy = null;
@@ -24,18 +24,20 @@ const gameMessages = [
 ];
 
 let markerOne = document.getElementById("player1-classico");
-markerOne.classList.remove("player-marker");
-
 let markerTwo = document.getElementById("player2-classico");
-markerTwo.classList.remove("player-marker");
 
 //first function to run
 function pageLoad() {
 	let marker = markerOne.cloneNode(true);
+	marker.classList.remove("player-marker");
 	document.getElementById("left-logo").appendChild(marker);
+	markerOne = marker;
 
 	marker = markerTwo.cloneNode(true);
+	marker.classList.remove("player-marker");
 	document.getElementById("right-logo").appendChild(marker);
+	markerTwo = marker;
+
 	let pannel = document.querySelector(".pannel");
 	pannel.classList.add("fade-in");
 	setTimeout(() => pannel.classList.remove("fade-in"), 500);
@@ -79,8 +81,15 @@ function getInterrupt() {
 }
 //problem here, solution is to check if it has child before removing child
 function reset() {
-	document.getElementById("right-crown").classList.remvoe("hide-content");
-	document.getElementById("left-crown").classList.remove("hide-content");
+	flag = 1;
+	document.getElementById("right-crown").classList.add("hide-content");
+	document.getElementById("left-crown").classList.add("hide-content");
+	let grid = document.querySelectorAll(".grid");
+	grid.forEach((grid) => {
+		grid.style.background = "white";
+	});
+	messageBox.textContent = "";
+	messageBox.classList.add("hide-content");
 	playerTurn = 0;
 	interruptType = 0;
 	checkGridFull = -9;
@@ -94,7 +103,13 @@ function reset() {
 
 function changeDifficulty() {
 	reset();
+	flag = 1;
+	document.querySelector(".name-holder[data-value~='0']").disabled = false;
+	document.querySelector(".name-holder[data-value~='1']").disabled = false;
+	enableTicy = false;
 	//missing other reset as well
+	//???????????????????????????
+
 	document.querySelector(".menu-pannel").classList.remove("hide-content");
 	document.querySelector(".pannel").classList.remove("hide");
 	console.log("hello");
@@ -102,8 +117,10 @@ function changeDifficulty() {
 
 //image pannel
 function expand() {
-	this.classList.toggle("image-pannel-expand");
-	this.classList.toggle("image-pannel");
+	if (flag) {
+		this.classList.toggle("image-pannel-expand");
+		this.classList.toggle("image-pannel");
+	}
 }
 
 function collapse(e) {
@@ -160,11 +177,11 @@ function setDifficulty() {
 	switch (this.dataset.value) {
 		case "0":
 			difficulty = 0;
-			console.log(difficulty);
+			//console.log(difficulty);
 			break;
 		case "1":
 			difficulty = 1;
-			console.log(difficulty);
+			//console.log(difficulty);
 			break;
 		default:
 	}
@@ -175,9 +192,13 @@ function setPlayerMode() {
 	switch (this.dataset.value) {
 		case "1":
 			enableTicy = false;
+			document.querySelector(".name-holder[data-value~='1']").disabled = false;
+			playerTwo = null;
 			break;
 		case "2":
 			enableTicy = true;
+			document.querySelector(".name-holder[data-value~='1']").disabled = true;
+			playerTwo = "Ticy";
 			selectDifficulty();
 			break;
 		default:
@@ -217,10 +238,10 @@ function checkThreeDashed(position, value, color) {
 	//6 7 8=>n%3,n/3
 	//middle case
 	//corner case
-	console.log("position" + position);
+	//console.log("position" + position);
 	row = parseInt(position / 3, 10);
-	console.log(row);
-	console.log(row);
+	//console.log(row);
+	//console.log(row);
 	let dashed = 0;
 
 	//row
@@ -229,7 +250,7 @@ function checkThreeDashed(position, value, color) {
 		(availableGrids[3 * row] == value &&
 			availableGrids[3 * row + 1] == value &&
 			availableGrids[3 * row + 2] == value);
-	console.log("row" + dashed);
+	//console.log("row" + dashed);
 	if (dashed) {
 		document.querySelector(`.grid[data-value~="${3 * row}"]`).style.background =
 			color;
@@ -259,7 +280,7 @@ function checkThreeDashed(position, value, color) {
 		).style.background = color;
 		return dashed;
 	}
-	console.log("column" + dashed);
+	//console.log("column" + dashed);
 	//diagonal1;
 	if (!(position % 4)) {
 		dashed =
@@ -274,7 +295,7 @@ function checkThreeDashed(position, value, color) {
 		document.querySelector('.grid[data-value~="8"]').style.background = color;
 		return dashed;
 	}
-	console.log("diagonal" + dashed);
+	//console.log("diagonal" + dashed);
 	//diagonal2
 	if (!(position % 2)) {
 		dashed =
@@ -291,20 +312,99 @@ function checkThreeDashed(position, value, color) {
 	}
 	return 0;
 }
+function checkWin(index) {
+	let rem = index % 3;
+	index = parseInt(index / 3, 10);
+	if (
+		availableGrids[3 * index] == -2 &&
+		availableGrids[3 * index + 1] == -2 &&
+		availableGrids[3 * index + 2] == -2
+	)
+		return true;
+	if (
+		availableGrids[rem] == -2 &&
+		availableGrids[rem + 3] == -2 &&
+		availableGrids[rem + 6] == -2
+	)
+		return true;
+	if (
+		availableGrids[4] == -2 &&
+		((availableGrids[0] == -2 && availableGrids[8] == -2) ||
+			(availableGrids[2] == -2 && availableGrids[6] == -2))
+	)
+		return true;
+	return false;
+}
 
-function playComputerMove() {
-	playerTurn = ~playerTurn;
-	/*switch()*/
-	let random = Math.floor(Math.random() * availableGrids.length);
-	let index = 0;
-	while (random > -1) {
-		if (availableGrids[index % 9] >= 0) random--;
-		index++;
+function checkLose(index) {
+	let rem = index % 3;
+	index = parseInt(index / 3, 10);
+	if (
+		availableGrids[3 * index] == -1 &&
+		availableGrids[3 * index + 1] == -1 &&
+		availableGrids[3 * index + 2] == -1
+	)
+		return true;
+	if (
+		availableGrids[rem] == -1 &&
+		availableGrids[rem + 3] == -1 &&
+		availableGrids[rem + 6] == -1
+	)
+		return true;
+	if (
+		availableGrids[4] == -1 &&
+		((availableGrids[0] == -1 && availableGrids[8] == -1) ||
+			(availableGrids[2] == -1 && availableGrids[6] == -1))
+	)
+		return true;
+	return false;
+}
+
+function minimax(player, index) {
+	if (checkWin(index)) {
+		let score = (checkGridFull - 1) * -1;
+		return { index, score };
 	}
-	index--;
-	index %= 9;
+	if (checkLose(index)) {
+		let score = checkGridFull - 1;
+		return { index, score };
+	}
+	if (!checkGridFull) {
+		return { index, score: 0 };
+	}
+	//the above order is problem so maintain it
+	let count = 0;
+	const scoreArray = [];
+	let nextPlayer = player == -2 ? -1 : -2;
+	//the for loop
+
+	for (let i = 0; i < 9; i++) {
+		//mark->availableGrids
+		if (availableGrids[i] >= 0) {
+			availableGrids[i] = player; //mark the grid with choice
+			++checkGridFull; //decrease the count of the array
+			let ret = minimax(nextPlayer, i); //get the object
+			ret.index = i;
+			scoreArray[count] = Object.assign({}, ret); //store it in array
+			availableGrids[i] = i; //restore the value
+			checkGridFull = checkGridFull - 1; //restore the value
+			count++;
+		} //
+	}
+	let finalRes = scoreArray[0];
+	for (let i = 1; i < count; i++) {
+		if (
+			(player == -2 && scoreArray[i].score > finalRes.score) ||
+			(player == -1 && scoreArray[i].score < finalRes.score)
+		) {
+			finalRes = scoreArray[i];
+		}
+	}
+	return finalRes;
+}
+
+function markTicy(index) {
 	availableGrids[index] = -2;
-	console.log(availableGrids);
 	selectedGrid = document.querySelector(`.grid[data-value~="${index}"]`);
 	markerTwo = markerTwo.cloneNode(true);
 	if (selectedGrid.firstChild) selectedGrid.removeChild(selectedGrid.lastChild);
@@ -313,7 +413,37 @@ function playComputerMove() {
 	if (checkThreeDashed(index, -2, "#ec4899")) {
 		checkGridFull = 0;
 		setInterrupt(4);
-		messageBox.classList.toggle("hide-content");
+		//messageBox.classList.toggle("hide-content");
+		//addMessage();
+		displayCrown = 1;
+	}
+}
+
+function playComputerMove() {
+	playerTurn = ~playerTurn;
+	/*switch()*/
+	let random = Math.floor(Math.random() * availableGrids.length);
+	let index = 0;
+	/*
+	to check if the random number is not used but also randomises the
+	 random search  but you can also optimise it
+	*/
+	while (random > -1) {
+		if (availableGrids[index % 9] >= 0) random--; //why
+		index++;
+	}
+	index--;
+	index %= 9;
+	availableGrids[index] = -2;
+	selectedGrid = document.querySelector(`.grid[data-value~="${index}"]`);
+	markerTwo = markerTwo.cloneNode(true);
+	if (selectedGrid.firstChild) selectedGrid.removeChild(selectedGrid.lastChild);
+	selectedGrid.appendChild(markerTwo);
+	checkGridFull++;
+	if (checkThreeDashed(index, -2, "#ec4899")) {
+		checkGridFull = 0;
+		setInterrupt(4);
+		//messageBox.classList.toggle("hide-content");
 		//addMessage();
 		displayCrown = 1;
 	}
@@ -327,7 +457,15 @@ function test() {
 		availableGrids.includes(Number(this.dataset.value)) &&
 		checkGridFull
 	) {
-		console.log("yolo" + this.dataset.value);
+		if (flag) {
+			document
+				.querySelector(".name-holder[data-value~='0']")
+				.setAttribute("disabled", "disabled");
+			document
+				.querySelector(".name-holder[data-value~='1']")
+				.setAttribute("disabled", "disabled");
+		}
+		flag = 0;
 		if (playerTurn == 0) {
 			markerOne = markerOne.cloneNode(true);
 			//while (this.firstChild != null) {
@@ -336,7 +474,6 @@ function test() {
 			//}
 			this.appendChild(markerOne);
 			availableGrids[this.dataset.value] = -1;
-			console.log("qen" + availableGrids);
 			checkGridFull++;
 			if (checkThreeDashed(Number(this.dataset.value), -1, "#2ECC71")) {
 				checkGridFull = 0;
@@ -346,7 +483,14 @@ function test() {
 				//addMessage();
 				return;
 			}
-			if (checkGridFull && enableTicy) playComputerMove();
+			if (checkGridFull && enableTicy) {
+				if (difficulty) {
+					playerTurn = ~playerTurn;
+					let pos = minimax(-2, null);
+					let index = pos.index;
+					markTicy(index);
+				} else playComputerMove();
+			}
 		} else {
 			markerTwo = markerTwo.cloneNode(true);
 			if (this.firstChild) this.removeChild(this.lastChild);
@@ -379,19 +523,21 @@ function test() {
 }
 
 function getUserDetails() {
-	let text = this.value;
-	messageBox.innerHTML = "";
-	messageBox.classList.add("hide-content");
-	if (this.dataset.value == 0) {
-		if (text.length > 0) {
-			playerOne = text;
-			gameMessages[2] = `Congratulations <strong style='color:var(--secondary-color)'>${this.value}</strong> wins!!`;
-		} else playerOne = null;
-	} else {
-		if (text.length > 0) {
-			playerTwo = text;
-			gameMessages[3] = `Congratulations <strong style='color:var(--secondary-color)'>"${this.value}"</strong> wins!!`;
-		} else playerTwo = null;
+	if (flag) {
+		let text = this.value;
+		messageBox.innerHTML = "";
+		messageBox.classList.add("hide-content");
+		if (this.dataset.value == 0) {
+			if (text.length > 0) {
+				playerOne = text;
+				gameMessages[2] = `Congratulations <strong style='color:var(--secondary-color)'>${this.value}</strong> wins!!`;
+			} else playerOne = null;
+		} else {
+			if (text.length > 0) {
+				playerTwo = text;
+				gameMessages[3] = `Congratulations <strong style='color:var(--secondary-color)'>"${this.value}"</strong> wins!!`;
+			} else playerTwo = null;
+		}
 	}
 }
 
